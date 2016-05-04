@@ -37,20 +37,20 @@ import microsoft.mappoint.TileSystem;
 public class Polyline extends OverlayWithIW {
 	
 	/** original GeoPoints */
-	private int mOriginalPoints[][]; //as an array, to reduce object creation
+	protected int mOriginalPoints[][]; //as an array, to reduce object creation
 	protected boolean mGeodesic;
-	private final Path mPath = new Path();
+	protected final Path mPath = new Path();
 	protected Paint mPaint = new Paint();
 	/** points, converted to the map projection */
-	private ArrayList<Point> mPoints;
+	protected ArrayList<Point> mPoints;
 	/** Number of points that have precomputed values */
-	private int mPointsPrecomputed;
+	protected int mPointsPrecomputed;
 	public boolean mRepeatPath = false; /** if true: at low zoom level showing multiple maps, path will be drawn on all maps */
 
 	/** bounding rectangle for the current line segment */
-	private final Rect mLineBounds = new Rect();
-	private final Point mTempPoint1 = new Point();
-	private final Point mTempPoint2 = new Point();
+	protected final Rect mLineBounds = new Rect();
+	protected final Point mTempPoint1 = new Point();
+	protected final Point mTempPoint2 = new Point();
 
 	protected OnClickListener mOnClickListener;
 
@@ -62,7 +62,7 @@ public class Polyline extends OverlayWithIW {
 		super(resourceProxy);
 		//default as defined in Google API:
 		this.mPaint.setColor(Color.BLACK);
-		this.mPaint.setStrokeWidth(10.0f);
+		this.mPaint.setStrokeWidth(1.0f);
 		this.mPaint.setStyle(Paint.Style.STROKE);
 		mPaint.setAntiAlias(true);
 		this.clearPath();
@@ -366,9 +366,11 @@ public class Polyline extends OverlayWithIW {
 			// update starting point to next position
 			screenPoint0.x = screenPoint1.x;
 			screenPoint0.y = screenPoint1.y;
+
 		}
 
 		canvas.drawPath(mPath, mPaint);
+
 
 		if (mRepeatPath) {
 			Path mPathCopy = new Path(mPath);
@@ -384,8 +386,8 @@ public class Polyline extends OverlayWithIW {
 			canvas.drawPath(mPathCopy, mPaint);
 		}
 	}
-	
-	/** Detection is done is screen coordinates. 
+
+		/** Detection is done is screen coordinates.
 	 * @param point
 	 * @param tolerance in pixels
 	 * @return true if the Polyline is close enough to the point. 
