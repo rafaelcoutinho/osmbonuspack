@@ -18,8 +18,13 @@ import org.osmdroid.views.Projection;
  * Created by rafael.coutinho on 04/05/16.
  */
 public class PolylineWithDirectionArrows extends Polyline {
-    public PolylineWithDirectionArrows(Context ctx){
+    public PolylineWithDirectionArrows(Context ctx) {
         super(ctx);
+        init();
+    }
+
+    public PolylineWithDirectionArrows(final ResourceProxy resourceProxy) {
+        super(resourceProxy);
         init();
     }
 
@@ -59,10 +64,7 @@ public class PolylineWithDirectionArrows extends Polyline {
         }
     }
 
-    public PolylineWithDirectionArrows(final ResourceProxy resourceProxy){
-        super(resourceProxy);
-        init();
-    }
+
 
     private void init() {
         paintFill = new Paint();

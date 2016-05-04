@@ -416,7 +416,7 @@ public class Polyline extends OverlayWithIW {
 	}
 	
 	// Compute the dot product AB x AC
-	private double dot(Point A, Point B, Point C) {
+	protected double dot(Point A, Point B, Point C) {
 		double AB_X = B.x - A.x;
 		double AB_Y = B.y - A.y;
 		double BC_X = C.x - B.x;
@@ -426,7 +426,7 @@ public class Polyline extends OverlayWithIW {
 	}
 
 	// Compute the cross product AB x AC
-	private double cross(Point A, Point B, Point C) {
+	protected double cross(Point A, Point B, Point C) {
 		double AB_X = B.x - A.x;
 		double AB_Y = B.y - A.y;
 		double AC_X = C.x - A.x;
@@ -436,7 +436,7 @@ public class Polyline extends OverlayWithIW {
 	}
 
 	// Compute the distance from A to B
-	private double distance(Point A, Point B) {
+	protected double distance(Point A, Point B) {
 		double dX = A.x - B.x;
 		double dY = A.y - B.y;
 		return Math.sqrt(dX * dX + dY * dY);
@@ -449,7 +449,7 @@ public class Polyline extends OverlayWithIW {
 	 * @param isSegment true if AB is a segment, not a line. 
 	 * @return the distance from AB to C. 
 	 */
-	private double linePointDist(Point A, Point B, Point C, boolean isSegment) {
+	protected double linePointDist(Point A, Point B, Point C, boolean isSegment) {
 		double dAB = distance(A, B);
 		if (dAB == 0.0)
 			return distance(A, C);
