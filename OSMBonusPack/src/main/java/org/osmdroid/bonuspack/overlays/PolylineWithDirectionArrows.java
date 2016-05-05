@@ -51,19 +51,22 @@ public class PolylineWithDirectionArrows extends Polyline {
             Point projectedPoint1 = mPoints.get(i);
             screenPoint1 = pj.toPixelsFromProjected(projectedPoint1, this.mTempPoint2);
             if (Math.abs(screenPoint1.x - screenPoint0.x) + Math.abs(screenPoint1.y - screenPoint0.y) <= 25) {
-                screenPoint0.x=screenPoint1.x;
-                screenPoint0.y=screenPoint1.y;
+                screenPoint0.x = screenPoint1.x;
+                screenPoint0.y = screenPoint1.y;
                 // skip this point, too close to previous point
                 continue;
             }
-            applyCustomStyles(screenPoint0,screenPoint1,canvas);
+            applyCustomStyles(screenPoint0, screenPoint1, canvas);
 
-            screenPoint0.x=screenPoint1.x;
-            screenPoint0.y=screenPoint1.y;
+            screenPoint0.x = screenPoint1.x;
+            screenPoint0.y = screenPoint1.y;
 
         }
     }
 
+    public void setLinePaint(Paint p) {
+       super.mPaint = p;
+    }
 
 
     private void init() {
@@ -82,7 +85,8 @@ public class PolylineWithDirectionArrows extends Polyline {
 
     private Paint paintFill;
     private Paint paintStroke;
-    protected void applyCustomStyles(Point p0, Point p1,  Canvas canvas) {
+
+    protected void applyCustomStyles(Point p0, Point p1, Canvas canvas) {
 //        fillArrow(mPaint,canvas,p0.x,p0.y,p1.x,p1.y);
         // create and draw triangles
 // use a Path object to store the 3 line segments
@@ -90,25 +94,24 @@ public class PolylineWithDirectionArrows extends Polyline {
 // note: this triangle is not centered at 0,0
 
 
-
         Path path = new Path();
 
 //        path.moveTo(0, -10);
-        float x = (p0.x+p1.x)/2;
-        float y = (p0.y+p1.y)/2;
+        float x = (p0.x + p1.x) / 2;
+        float y = (p0.y + p1.y) / 2;
         path.moveTo(x, y);
 //        path.lineTo(5, 0);
-        path.lineTo(x+5, y+10);
-        path.lineTo(x-5, y+10);
+        path.lineTo(x + 5, y + 10);
+        path.lineTo(x - 5, y + 10);
 //        path.lineTo(-5, 0);
         path.close();
 
         Matrix mMatrix = new Matrix();
         RectF bounds = new RectF();
         path.computeBounds(bounds, true);
-        float angle = (float)angleOf(p1,p0);
+        float angle = (float) angleOf(p1, p0);
 
-        mMatrix.postRotate(angle-90, x,y);//bounds.centerX(), bounds.centerY());
+        mMatrix.postRotate(angle - 90, x, y);//bounds.centerX(), bounds.centerY());
         path.transform(mMatrix);
 
 
@@ -116,6 +119,7 @@ public class PolylineWithDirectionArrows extends Polyline {
         canvas.drawPath(path, paintStroke);
 
     }
+
     public static double angleOf(Point p1, Point p2) {
         // NOTE: Remember that most math has the Y axis as positive above the X.
         // However, for screens we have Y as positive below. For this reason,
@@ -133,8 +137,8 @@ public class PolylineWithDirectionArrows extends Polyline {
 
         int arrowHeadLenght = 30;
         int arrowHeadAngle = 45;
-        float[] linePts = new float[] {x1 - arrowHeadLenght, y1, x1, y1};
-        float[] linePts2 = new float[] {x1, y1, x1, y1 + arrowHeadLenght};
+        float[] linePts = new float[]{x1 - arrowHeadLenght, y1, x1, y1};
+        float[] linePts2 = new float[]{x1, y1, x1, y1 + arrowHeadLenght};
         Matrix rotateMat = new Matrix();
 
         //get the center of the line
@@ -149,8 +153,8 @@ public class PolylineWithDirectionArrows extends Polyline {
         rotateMat.mapPoints(linePts);
         rotateMat.mapPoints(linePts2);
 
-        canvas.drawLine(linePts [0], linePts [1], linePts [2], linePts [3], paint);
-        canvas.drawLine(linePts2 [0], linePts2 [1], linePts2 [2], linePts2 [3], paint);
+        canvas.drawLine(linePts[0], linePts[1], linePts[2], linePts[3], paint);
+        canvas.drawLine(linePts2[0], linePts2[1], linePts2[2], linePts2[3], paint);
     }
 
     public Paint getPaintFill() {
