@@ -169,7 +169,7 @@ public class POI implements Parcelable {
 		}
 	};
 	
-	private POI(Parcel in){
+	protected POI(Parcel in){
 		mServiceId = in.readInt();
 		mId = in.readLong();
 		mLocation = in.readParcelable(GeoPoint.class.getClassLoader());
