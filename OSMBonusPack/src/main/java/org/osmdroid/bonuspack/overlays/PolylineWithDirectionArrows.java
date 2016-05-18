@@ -65,7 +65,7 @@ public class PolylineWithDirectionArrows extends Polyline {
     }
 
     public void setLinePaint(Paint p) {
-       super.mPaint = p;
+       this.mPaint = p;
     }
 
 

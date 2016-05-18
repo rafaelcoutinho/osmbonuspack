@@ -29,10 +29,10 @@ dependencies {
 
 }
 
-apply from: '../maven.gradle'
-
-install {
-    repositories.mavenInstaller {
-        pom.version = "5.7-SNAPSHOT"
-    }
-}
+//apply from: '../maven.gradle'
+//
+//install {
+//    repositories.mavenInstaller {
+//        pom.version = "5.7-SNAPSHOT"
+//    }
+//}
